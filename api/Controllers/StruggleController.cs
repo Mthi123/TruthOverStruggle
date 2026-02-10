@@ -21,14 +21,17 @@ namespace api.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetStruggles()
+        public IActionResult GetStrugglesNames() //just the names that appear in the list
         {
-            var struggle = _context.Struggles.ToList();
-            return Ok(struggle);
+            var struggleNames = _context.Struggles
+            .Select(s => new StruggleDto {Id = s.Id, Name = s.Name}) // s is the new instance of the object 'StrugglesDto.
+            .ToList();                                               // we're loading blueprint attrbs "Id" and "Name" into s
+                                                                     // so, we select those two attrbs and listing them tgth.
+            return Ok(struggleNames); //id + name = strugglenames aweh.
         }
 
         [HttpGet("{id}")]
-        public IActionResult GetStruggle(int id)
+        public IActionResult GetStruggle(int id) //specifes struggle deets.
         {
             var struggle = _context.Struggles.Find(id);
             if (struggle == null)
@@ -36,6 +39,36 @@ namespace api.Controllers
                 return NotFound();
             }
             return Ok(struggle);
+        }
+
+        [HttpGet("{id}/journal")]
+        public IActionResult GetJournalEntryByStruggle(int id)
+        {
+            var journals = _context.JournalEntryStruggles
+            .Where(jes => jes.StruggleId == id) //this is sql in C#. practice this.
+            .Select(jes => jes.JournalEntry)
+            .ToList();
+
+            if (journals.Any()) //whot is this
+            {
+                return NotFound();
+            }
+            return Ok(journals);
+        }
+
+        [HttpGet("{id}/scripture")]
+        public IActionResult GetScriptureByStruggle(int id) //uses ScriptureStruggle
+        {
+            var scriptures = _context.StruggleScriptures
+            .Where(sts => sts.StruggleId == id)
+            .Select(sts => sts.Scripture)
+            .ToList();
+
+            if (scriptures.Any())
+            {
+                return NotFound();
+            }
+            return Ok(scriptures);
         }
 
         [HttpPost]
@@ -55,19 +88,30 @@ namespace api.Controllers
             };
             _context.Struggles.Add(struggle);
             _context.SaveChanges();
-
-            var links = dto.LinkedScriptureIds.Select(id => new StruggleScripture
-            {
-                StruggleId = struggle.Id,
-                ScriptureId = id,
-                DateLinked = DateTime.UtcNow
-            }).ToList();
-
-            _context.StruggleScriptures.AddRange(links);
-            _context.SaveChanges();
-
             return CreatedAtAction(nameof(GetStruggle), new { id = struggle.Id }, struggle);
 
+        }
+
+        [HttpPost("{id}")]
+        public IActionResult AddStruggleToEntry(int struggleId, [FromBody] int journalEntryId)
+        {
+            var journalEntry = _context.JournalEntries.Find(journalEntryId); //fetching these two from method body
+            var struggle = _context.Struggles.Find(struggleId);
+
+            if (struggle == null || journalEntry == null)
+            {
+                return NotFound();
+            }
+            var link = new JournalEntryStruggle
+            {
+                StruggleId = struggle.Id,
+                JournalEntryId = journalEntry.Id,
+                DateLinked = DateTime.UtcNow
+            };
+
+            _context.JournalEntryStruggles.Add(link);
+            _context.SaveChanges();
+            return Ok(link);
         }
 
         [HttpPut("{id}")]

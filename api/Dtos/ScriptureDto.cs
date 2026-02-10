@@ -7,9 +7,12 @@ namespace api.Dtos
 {
     public class ScriptureDto
     {
-        public int Id { get; set; }
-        public string Passage { get; set; } = string.Empty;
-        public string Description { get; set; } = string.Empty;
+        public string BookName { get; set; }
+        public int Chapter { get; set; }
+        public int VerseStart { get; set; }
+        public int? VerseEnd { get; set; }
+        public string VerseText { get; set; }
+        public string Translation { get; set; }
         public List<int>? LinkedStruggleIds { get; set; } = new();
 
     }

@@ -16,7 +16,7 @@ namespace api.Controllers
     public class JournalController : ControllerBase
     {
         private readonly ApplicationDbContext _context;
-        public JournalController(ApplicationDbContext context)
+        public JournalController(ApplicationDbContext context) //const
         {
             _context = context;
         }
@@ -29,7 +29,7 @@ namespace api.Controllers
         }
 
         [HttpGet("{id}")]
-        public IActionResult GetJournalEntry(int id)
+        public IActionResult GetJournalEntry(int id) //GetJournalEntryByStruggle - uses journalEntryStruggle
         {
             var journal = _context.JournalEntries.Find(id);
             if (journal == null)
@@ -45,34 +45,18 @@ namespace api.Controllers
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var journalEntry = new JournalEntry
+            var journalEntry = new JournalEntry //dto is api-used blueprint for entities?
             {
                 Title = dto.Title,
+                UserId = dto.UserId,
                 Date = dto.Date,
                 Mood = dto.Mood,
-                Struggle = dto.Struggle,
                 Content = dto.Content,
-                JournalEntryStruggles = dto.StruggleIds.Select(id => new JournalEntryStruggle
-                {
-                    StruggleId = id,
-                    DateLinked = DateTime.UtcNow
-                }).ToList()
             };
 
             _context.JournalEntries.Add(journalEntry);
-            await _context.SaveChangesAsync();
-
-            var links = dto.StruggleIds.Select(id => new JournalEntryStruggle
-            {
-                JournalEntryId = journalEntry.Id,
-                StruggleId = id,
-                DateLinked = DateTime.UtcNow
-            }).ToList();
-
-            _context.JournalEntryStruggles.AddRange(links);
             _context.SaveChanges();
             return CreatedAtAction(nameof(GetJournalEntry), new { id = journalEntry.Id }, journalEntry);
-
         }
 
         [HttpPut("{id}")]

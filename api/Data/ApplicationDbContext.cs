@@ -14,6 +14,7 @@ namespace api.Data
 
         }
 
+        public DbSet<AppUser> AppUsers { get; set; }
         public DbSet<JournalEntry> JournalEntries { get; set; }
         public DbSet<Struggle> Struggles { get; set; }
         public DbSet<Scripture> Scriptures { get; set; }

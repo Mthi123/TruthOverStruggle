@@ -92,7 +92,7 @@ namespace api.Controllers
 
         }
 
-        [HttpPost("{id}")]
+        [HttpPost("{id}")] //create new link using struggle id
         public IActionResult AddStruggleToEntry(int struggleId, [FromBody] int journalEntryId)
         {
             var journalEntry = _context.JournalEntries.Find(journalEntryId); //fetching these two from method body

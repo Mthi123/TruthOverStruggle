@@ -29,10 +29,18 @@ namespace api.Controllers
         }
         
         [HttpPost("{id}")]
-        public IActionResult LinkStruggleToScripture(int struggleId, int scriptureId)
+        public IActionResult LinkStruggleToScripture(int struggleId, [FromBody] ScriptureDto dto)
         {
             var struggle = _context.Struggles.Find(struggleId);
-            var scripture = _context.Scriptures.Find(scriptureId);
+            var scripture = new Scripture
+            {
+                BookName = dto.BookName,
+                Chapter = dto.Chapter,
+                VerseStart = dto.VerseStart,
+                VerseEnd = dto.VerseEnd,
+                VerseText = dto.VerseText,
+                Translation = dto.Translation
+            };
 
             if (struggle == null || scripture == null)
             {

@@ -21,12 +21,15 @@ namespace api.Controllers
             _context = context;
         }
 
-        [HttpGet]
-        public IActionResult GetAllJournals()
+        [HttpGet("/{date}")]
+        public IActionResult GetJournalsByDate(DateTime date)
         {
-            var journals = _context.JournalEntries.ToList();
+            var journals = _context.JournalEntries
+            .Where(j => j.Date.Date == date.Date)
+            .ToList();
             return Ok(journals);
         }
+
 
         [HttpGet("{id}")]
         public IActionResult GetJournalEntry(int id) //GetJournalEntryByStruggle - uses journalEntryStruggle

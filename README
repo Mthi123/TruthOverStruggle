@@ -1,24 +1,24 @@
-#Truth Over Struggle
+# Truth Over Struggle
 Truth Over Struggle is a personal journaling website which allows users to:
 - Write journal entries
 - Find their journal entries according to their date
 - Attach common themes they struggle with (for example: Procrastination)
 - And, should they be religious, attach encouraging scripture to the aforementioned struggles
-.................................................................................................
+---
 
-##Backend Approach
+## Backend Approach
 It uses a MSSS database, and ASP.NET Web Api, following the model and controller of MVC.
-.................................................................................................
+---
 
-##Frontend Approach
+## Frontend Approach
 Currently, the frontend is being built using a hybrid approach using the following languages:
 - Razor views
 - Plain HTML with Bootstrap
 - JavaScript for interactivity
 The intention is to keep the RESTful APIs and backend decoupled from the frontend.
-.................................................................................................
+---
 
-##Features in Progress
+## Features in Progress
 - Modular journaling interface
 - Date‑based journal search
 - Journal sorting by struggles

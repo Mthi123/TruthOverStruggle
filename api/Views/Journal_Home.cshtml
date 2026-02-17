@@ -8,7 +8,7 @@
         <div class=col-md-6> 
             <h3>New Journal Entry</h3> <!-- first half of the page -->
             <form>
-                
+
                 <label for="journalTitle" class="form-label" >Title</label>
                 <input type="text" id="journalTitle" class="form-control" placeholer="Enter Title"/>
 
@@ -63,86 +63,4 @@
 
         }
     </script>
-}
-
-<div class="container">
-    <div class="row">
-        <!-- Left column -->
-        <div class="col-md-6">
-            <h3>My Journal Entries</h3>
-
-            <!-- Date picker -->
-            <div id="datePickerBlock">
-                <input type="date" id="journalDate" class="form-control mb-2" />
-                <button class="btn btn-primary" onclick="loadJournalsByDate()">Load Journals</button>
-            </div>
-
-            <!-- Journal list (hidden initially) -->
-            <ul id="journalList" class="list-group mt-3" style="display:none;"></ul>
-        </div>
-
-        <!-- Right column: journal entry form -->
-        <div class="col-md-6">
-            <h3>New Entry</h3>
-            <form asp-action="Create" method="post">
-                <div class="mb-3">
-                    <label for="Title" class="form-label">Title</label>
-                    <input type="text" name="Title" class="form-control" />
-                </div>
-                <div class="mb-3">
-                    <label for="Content" class="form-label">Content</label>
-                    <textarea name="Content" class="form-control"></textarea>
-                </div>
-                <button type="submit" class="btn btn-success">Save</button>
-            </form>
-        </div>
-    </div>
-</div>
-
-@section Scripts {
-<script>
-    async function loadJournalsByDate() {
-        const dateInput = document.getElementById('journalDate').value;
-        if (!dateInput) {
-            alert("Please select a date.");
-            return;
-        }
-
-        const response = await fetch(`/Journal/${dateInput}`);
-        if (!response.ok) {
-            alert("No journals found for that date.");
-            return;
-        }
-
-        const journals = await response.json();
-
-        // Hide the date picker block
-        document.getElementById('datePickerBlock').style.display = 'none';
-
-        // Show the journal list
-        const list = document.getElementById('journalList');
-        list.style.display = 'block';
-        list.innerHTML = '';
-
-        journals.forEach(j => {
-            const li = document.createElement('li');
-            li.className = 'list-group-item';
-            li.textContent = `${new Date(j.date).toLocaleDateString()} - ${j.title}`;
-            li.onclick = () => showJournal(j);
-            list.appendChild(li);
-        });
-    }
-
-    function showJournal(journal) {
-        // Replace the left column with the selected journal
-        const list = document.getElementById('journalList');
-        list.innerHTML = `
-            <li class="list-group-item active">
-                <h4>${journal.title}</h4>
-                <p>${journal.content}</p>
-                <small>${new Date(journal.date).toLocaleDateString()}</small>
-            </li>
-        `;
-    }
-</script>
 }

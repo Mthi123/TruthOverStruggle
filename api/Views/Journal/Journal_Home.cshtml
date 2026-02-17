@@ -43,7 +43,7 @@
                 return;
             }
 
-            const response = await fetch{`/Journal/${dateInput}`};
+            const response = await fetch(`/api/Journal/${dateInput}`);
             if(!response.ok){
                 alert("Couldn't fetch journals!");
                 return;
@@ -51,14 +51,14 @@
 
             const journals = await response.json(); //toList(), so journals == array
             const list = document.getElementById('journalList');
-            list.innerHTML() = ''; //clears previous search list
+            list.innerHTML = ''; //clears previous search list
 
             journals.forEach(j =>{
                 const li = document.createElement('li');
-                li.className = 'list-group=item';
-                li.textContent = `${new Date(j.date).toLocaleDateString} - ${j.title}`
+                li.className = 'list-group-item';
+                li.textContent = `${new Date(j.date).toLocaleDateString()} - ${j.title}`
                 //li.onclick = () => //new page or replace date picking layout
-                li.appendChild(li);
+                list.appendChild(li);
             })
 
         }

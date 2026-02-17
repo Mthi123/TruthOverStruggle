@@ -44,7 +44,7 @@ namespace api.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateJournalEntry([FromBody] JournalEntryDto dto)
+        public IActionResult CreateJournalEntry([FromBody] JournalEntryDto dto)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);

@@ -141,3 +141,8 @@ C:\Users\mthmz\Documents\VS Code Projects\TruthOverStruggle\api\obj\Debug\net8.0
 C:\Users\mthmz\Documents\VS Code Projects\TruthOverStruggle\api\obj\Debug\net8.0\api.genruntimeconfig.cache
 C:\Users\mthmz\Documents\VS Code Projects\TruthOverStruggle\api\obj\Debug\net8.0\ref\api.dll
 C:\Users\mthmz\Documents\VS Code Projects\TruthOverStruggle\api\obj\Debug\net8.0\api.sourcelink.json
+C:\Users\mthmz\Documents\VS Code Projects\TruthOverStruggle\api\bin\Debug\net8.0\package-lock.json
+C:\Users\mthmz\Documents\VS Code Projects\TruthOverStruggle\api\bin\Debug\net8.0\package.json
+C:\Users\mthmz\Documents\VS Code Projects\TruthOverStruggle\api\bin\Debug\net8.0\api.staticwebassets.runtime.json
+C:\Users\mthmz\Documents\VS Code Projects\TruthOverStruggle\api\obj\Debug\net8.0\api.RazorAssemblyInfo.cache
+C:\Users\mthmz\Documents\VS Code Projects\TruthOverStruggle\api\obj\Debug\net8.0\api.RazorAssemblyInfo.cs

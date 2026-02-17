@@ -14,11 +14,11 @@ namespace api.Controllers
     [Route("api/StruggleScripture")]
     [ApiController]
     
-public class StruggleScriptureController : ControllerBase
+public class StruggleScriptureApiController : ControllerBase
 {
     private readonly ApplicationDbContext _context;
 
-    public StruggleScriptureController(ApplicationDbContext context)
+    public StruggleScriptureApiController(ApplicationDbContext context)
     {
         _context = context;
     }

@@ -14,10 +14,10 @@ namespace api.Controllers
 {
     [Route("api/JournalEntryStruggle")]
     [ApiController]
-    public class JournalEntryStruggleController : ControllerBase
+    public class JournalEntryStruggleApiController : ControllerBase
     {
         private readonly ApplicationDbContext _context;
-        public JournalEntryStruggleController(ApplicationDbContext context)
+        public JournalEntryStruggleApiController(ApplicationDbContext context)
         {
             this._context = context;
         }

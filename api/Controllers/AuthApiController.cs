@@ -13,11 +13,11 @@ namespace api.Controllers
     [ApiController]
     [Route("api/[controller]")]
     // this is gonna house change password (put), sign up (post), log in (??)
-    public class AuthController : ControllerBase
+    public class AuthApiController : ControllerBase
     {
         private readonly ApplicationDbContext _context;
 
-        public AuthController(ApplicationDbContext context)
+        public AuthApiController(ApplicationDbContext context)
         {
             _context = context;
         }

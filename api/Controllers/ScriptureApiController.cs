@@ -11,11 +11,11 @@ namespace api.Controllers
 {
     [Route("api/Scripture")]
     [ApiController]
-    public class ScriptureController : ControllerBase
+    public class ScriptureApiController : ControllerBase
     {
         private readonly ApplicationDbContext _context;
 
-        public ScriptureController(ApplicationDbContext context)
+        public ScriptureApiController(ApplicationDbContext context)
         {
             this._context = context;
 

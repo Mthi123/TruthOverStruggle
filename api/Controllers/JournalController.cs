@@ -8,6 +8,7 @@ using api.Models;
 using api.Dtos;
 using api.DTOs;
 
+//BIG THING I DIDN'T KNOW! these controller methods can return views
 
 namespace api.Controllers
 {

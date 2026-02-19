@@ -8,7 +8,6 @@ using Microsoft.Extensions.Logging;
 
 namespace api.Controllers
 {
-    [Route("[controller]")]
     public class JournalController : Controller
     {
         private readonly ILogger<JournalController> _logger;

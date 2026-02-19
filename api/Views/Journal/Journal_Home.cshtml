@@ -1,66 +1,79 @@
 @{
-    ViewData["Title"]="Journal";
-    Layout="~/Views/Shared/_Layout.cshtml";
+    ViewData["Title"] = "Journal";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
 <div class="container">
-    <div class=column>
-
-        <div class=col-md-6> 
-            <h3>New Journal Entry</h3> <!-- first half of the page -->
+    <div class="row">
+        <div class="col-md-6">
+            <h3>New Journal Entry</h3>
             <form>
+                <div class="mb-3">
+                    <label for="journalTitle" class="form-label">Title</label>
+                    <input type="text" id="journalTitle" name="Title" class="form-control" placeholder="Enter Title" />
+                </div>
 
-                <label for="journalTitle" class="form-label" >Title</label>
-                <input type="text" id="journalTitle" class="form-control" placeholer="Enter Title"/>
+                <div class="mb-3">
+                    <label for="Date" class="form-label">Date</label>
 
-                <input type="date" id="Date" class="form-control"
-                value="@DateTime.Now.ToString("dd-mm-yyyy")"/> <!--practice dates-->
+                    <input type="date" id="Date" name="Date"
+                           class="form-control"
+                           value="@DateTime.Now.ToString("yyyy-MM-dd")" />
+                </div>
 
-                <label for="journalMood" class="form-label" >Mood</label>
-                <input type="text" id="journalMood" class="form-control" placeholder="Sad"/>
+                <div class="mb-3">
+                    <label for="journalMood" class="form-label">Mood</label>
+                    <input type="text" id="journalMood" name="Mood" class="form-control" placeholder="Sad" />
+                </div>
 
-                <label for="journalContent" class="form-label" >Content</label>
-                <textarea name="Content" id="journalContent" class="form-control" placeholder="Go on, let your feelings out." />
+                <div class="mb-3">
+                    <label for="journalContent" class="form-label">Content</label>
+                    <!-- textarea is NOT self-closing -->
+                    <textarea id="journalContent" name="Content" class="form-control" placeholder="Go on, let your feelings out."></textarea>
+                </div>
 
-                <button type="submit" id="submitBtn">Submit</button>
+                <button type="submit" class="btn btn-primary" id="submitBtn">Submit</button>
             </form>
         </div>
-        <div class=col-md-6>
-            <h3>My Journal Entry</h3>
-            <input type="date" id="journalDate" class="form-control mb-2" /> <!-- this is a date picker -->
-            <button class="btn btn-primary" onclick="loadJournalsByDate()">Load Journals</button>
 
-            <ul id="journalList" class="listGroup"> <!-- this is a list --></ul>
+        <div class="col-md-6">
+            <h3>My Journal Entries</h3>
+
+            <input type="date" id="journalDate" class="form-control mb-2" />
+            <button class="btn btn-secondary mb-3" onclick="loadJournalsByDate()">Load Journals</button>
+
+            <ul id="journalList" class="list-group"></ul>
         </div>
-
     </div>
 </div>
-@section Scripts{
+
+@section Scripts {
     <script>
-        async function loadJournalsByDate(){
+        async function loadJournalsByDate() {
             const dateInput = document.getElementById('journalDate').value;
-            if(!dateInput){
+            if (!dateInput) {
                 alert("Please select a date!");
                 return;
             }
 
+            // If your API expects yyyy-MM-dd, this matches the <input type="date"> value.
             const response = await fetch(`/api/Journal/${dateInput}`);
-            if(!response.ok){
+            if (!response.ok) {
                 alert("Couldn't fetch journals!");
                 return;
             }
 
-            const journals = await response.json(); //toList(), so journals == array
+            const journals = await response.json();
             const list = document.getElementById('journalList');
-            list.innerHTML = ''; //clears previous search list
+            list.innerHTML = '';
 
-            journals.forEach(j =>{
+            journals.forEach(j => {
                 const li = document.createElement('li');
                 li.className = 'list-group-item';
-                li.textContent = `${new Date(j.date).toLocaleDateString()} - ${j.title}`
-                //li.onclick = () => //new page or replace date picking layout
+                const dateStr = new Date(j.date).toLocaleDateString();
+                li.textContent = `${dateStr} - ${j.title}`;
                 list.appendChild(li);
-            })
-
+            });
         }
     </script>
 }

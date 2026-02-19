@@ -8,8 +8,7 @@ using Microsoft.Extensions.Logging;
 
 namespace api.Controllers
 {
-    [Route("[controller]")]
-    public class HomeController : Controller
+   public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
 

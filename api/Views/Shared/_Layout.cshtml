@@ -13,6 +13,7 @@
         </header>
         <main>
             @RenderBody()
+            @RenderSection("Scripts", required: false);
         </main>
         <footer>
             <p>&copy; @DateTime.Now.Year - TruthOverStruggle</p>
